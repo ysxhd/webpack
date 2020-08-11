@@ -6,6 +6,7 @@
 const {
     resolve
 } = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     // 入口
@@ -42,7 +43,12 @@ module.exports = {
         ]
     },
     plugins: [
-
+        // 功能 ：默认会创建一个空的HTML，自动引入打包输出的所有资源（js/css）
+        // 需求： 需要有结构的html
+        new htmlWebpackPlugin({
+            // 复制'./src/index.html,自动引入打包输出的所有资源（js/css）'
+            template: './src/index.html'
+        })
     ],
     mode: 'development'
 }

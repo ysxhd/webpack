@@ -6,6 +6,7 @@
 const {
     resolve
 } = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     // 入口
@@ -27,22 +28,20 @@ module.exports = {
                     //将css文件变成commonjs模块加载到js中，里面内容是字符串
                     'css-loader'
                 ]
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    // use 数组中loader执行顺序： 从右到左，从下到上依次执行
-                    // 创建style标签，将js中的样式资源插入进行添加到head中生效
-                    'style-loader',
-                    //将css文件变成commonjs模块加载到js中，里面内容是字符串
-                    'css-loader',
-                    'less-loader'
-                ]
+            }, {
+                exclude: /\.(css|js|html)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[hash:10].[ext]'
+                }
             }
         ]
     },
     plugins: [
-
+        new htmlWebpackPlugin({
+            // 复制'./src/index.html,自动引入打包输出的所有资源（js/css）'
+            template: './src/index.html'
+        })
     ],
     mode: 'development'
 }
