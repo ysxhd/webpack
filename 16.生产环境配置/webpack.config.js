@@ -2,10 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {
     resolve
 } = require('path');
-const {
-    options
-} = require('less');
-cosnt OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 定义nodejs环境变量
 process.env.NODE_ENV = 'production';
