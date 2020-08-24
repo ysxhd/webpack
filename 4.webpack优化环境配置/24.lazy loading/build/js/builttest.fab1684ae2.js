@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],[,function(n,o,t){"use strict";function u(n,o){return n*o}function c(n,o){return n-o}t.r(o),t.d(o,"mul",(function(){return u})),t.d(o,"count",(function(){return c})),console.log("tes.js文件被加载了")}]]);
