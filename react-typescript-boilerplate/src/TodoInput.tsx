@@ -48,7 +48,6 @@ class TodoInput extends React.Component<TodoInputProps, TodoInputState>  {
   private triggerChange = (changedValue: TodoValue) => {
     const { content, user, date } = this.state;
     const { value, onChange } = this.props;
-
     if (onChange) {
       onChange({ content, user, date, ...value, ...changedValue });
     }
