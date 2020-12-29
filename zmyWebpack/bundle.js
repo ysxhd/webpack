@@ -10,9 +10,11 @@ const getModuleInfo = (file) => {
     });
     const deps = {}; // 收集依赖路径
     traverse(ast, {
-        ImportDeclaration({ node }) {;
+        ImportDeclaration({ node }) {
             const dirname = path.dirname(file);
-            const abspath = './' + path.join(dirname, node.source.value);
+            let abspath = './' + path.join(dirname, node.source.value);
+            // windowsj路径反斜杠
+            abspath = abspath.replace('\\', '/') + '.js';
             deps[node.source.value] = abspath;
         }
     })
@@ -20,24 +22,34 @@ const getModuleInfo = (file) => {
         presets: ["@babel/preset-env"]
     });
     const moduleInfo = { file, deps, code };
+    // console.log(moduleInfo)
     return moduleInfo;
 }
+// getModuleInfo('./src/index.js')
 
 const parseModules = (file) => {
+    const depsGraph = {};
     // 获取入口文件信息
     const entry = getModuleInfo(file);
     const temp = [entry];
-    for(let i = 0; i < temp.length; i++) {
-        const deps = temp[i];
-        if(deps){
+    for (let i = 0; i < temp.length; i++) {
+        const deps = temp[i].deps;
+        if (deps) {
             // 遍历模块依赖 递归获取模块信息
-            for(const key in deps){
-                if(deps.hasOwnProperty(key)){
+            for (const key in deps) {
+                if (deps.hasOwnProperty(key)) {
                     temp.push(getModuleInfo(deps[key]));
                 }
             }
         }
     }
-    console.log(temp);
+    temp.forEach(moduleInfo => {
+        depsGraph[moduleInfo.file] = {
+            deps: moduleInfo.deps,
+            code: moduleInfo.code
+        }
+    });
+    console.log(depsGraph);
+    return depsGraph;
 }
 parseModules('./src/index.js')

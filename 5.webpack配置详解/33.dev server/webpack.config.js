@@ -47,7 +47,7 @@ module.exports = {
         // 启动gzip
         compress: true,
         // 端口号
-        port: 5000,
+        port: 5003,
         // 域名
         host: 'localhost',
         // 自动打开浏览器
@@ -64,7 +64,7 @@ module.exports = {
         proxy: {
             // 一旦devServer(5000)服务器接收到 /api/xxx 的请求,就会把请求转发到另外一个服务器(3000)
             '/api': {
-                target: 'http:localhost:3000',
+                target: 'http://localhost:3000',
                 // 发送请求时,请求路径重写: 将 /api/xxx ---> /xxx (去掉api)
                 pathRewrite: {
                     '^api': ''
